@@ -6,8 +6,6 @@ const navItems = [
   { label: 'Articles', href: '/articles' },
   { label: 'Categories', href: '/categories' },
   { label: 'About', href: '/about' },
-  { label: 'Editorial Policy', href: '/editorial-policy' },
-  { label: 'Disclaimer', href: '/disclaimer' },
   { label: 'Contact', href: '/contact' },
 ];
 ---
@@ -46,12 +44,18 @@ const navItems = [
   }
 
   .header-container {
-    max-width: 1200px;
+    max-width: 1150px;
     margin: 0 auto;
     padding: 1rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 1rem;
+    }
   }
 
   .logo {

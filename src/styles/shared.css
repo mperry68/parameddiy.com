@@ -1,0 +1,18 @@
+/* Shared Page Container - Used by Header and Article Pages */
+:root {
+  --page-container-max-width: 1150px;
+  --page-container-padding: 1.5rem;
+}
+
+.page-container {
+  max-width: var(--page-container-max-width);
+  margin: 0 auto;
+  padding-inline: var(--page-container-padding);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --page-container-padding: 1rem;
+  }
+}
+

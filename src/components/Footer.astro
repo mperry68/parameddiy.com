@@ -14,14 +14,19 @@ const currentYear = new Date().getFullYear();
         <h4 class="footer-heading">Pages</h4>
         <ul class="footer-links">
           <li><a href="/about">About</a></li>
-          <li><a href="/editorial-policy">Editorial Policy</a></li>
-          <li><a href="/disclaimer">Disclaimer</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; {currentYear} {siteConfig.name}. All rights reserved.</p>
+      <div class="footer-bottom-content">
+        <p class="footer-copyright">&copy; {currentYear} {siteConfig.name}. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="/editorial-policy">Editorial Policy</a>
+          <span class="footer-link-separator">|</span>
+          <a href="/disclaimer">Disclaimer</a>
+        </div>
+      </div>
       <p class="footer-disclaimer">
         This site provides educational information only and is not a substitute for professional medical advice.
       </p>
@@ -96,14 +101,63 @@ const currentYear = new Date().getFullYear();
   .footer-bottom {
     border-top: 1px solid rgba(51, 65, 85, 0.5);
     padding-top: 1.5rem;
-    text-align: center;
     font-size: 0.875rem;
     color: #64748b;
+  }
+
+  .footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-copyright {
+    margin: 0;
+    text-align: left;
+  }
+
+  .footer-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .footer-bottom-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-bottom-links a:hover {
+    color: #06b6d4;
+  }
+
+  .footer-link-separator {
+    color: #475569;
   }
 
   .footer-disclaimer {
     margin-top: 0.5rem;
     font-size: 0.75rem;
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    .footer-bottom-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-copyright {
+      width: 100%;
+    }
+
+    .footer-bottom-links {
+      width: 100%;
+    }
   }
 
   @media (max-width: 768px) {

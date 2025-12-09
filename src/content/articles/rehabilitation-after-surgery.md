@@ -14,35 +14,41 @@ Rehabilitation after surgery is a crucial part of the recovery process. It helps
 
 ## Why Rehabilitation Matters
 
-Post-surgical rehabilitation is important because:
+Post-surgical rehabilitation is a structured approach to recovery that plays a crucial role in your healing journey. While surgery addresses the immediate medical issue, rehabilitation focuses on restoring your body's function and helping you return to your normal activities safely and effectively.
 
-- It helps restore strength and mobility
-- Reduces the risk of complications
-- Prevents muscle atrophy and joint stiffness
-- Improves circulation and healing
-- Helps you return to daily activities safely
+Rehabilitation after surgery is important for several key reasons:
+
+- **Restores strength and mobility** - Helps rebuild muscle strength and joint flexibility that may have been lost during the surgical procedure or recovery period
+- **Reduces the risk of complications** - Prevents issues like blood clots, infections, and other post-surgical problems
+- **Prevents muscle atrophy and joint stiffness** - Maintains muscle mass and prevents joints from becoming stiff during the recovery period
+- **Improves circulation and healing** - Gentle movement and exercises promote blood flow, which supports the body's natural healing processes
+- **Helps you return to daily activities safely** - Provides a structured path back to work, hobbies, and daily tasks with reduced risk of re-injury
 
 ## The Rehabilitation Timeline
 
 ### Immediate Post-Operative Phase (Days 1-7)
 
-During the first week after surgery:
+The first week after surgery is a critical period focused on initial healing and preventing complications. During this phase, your healthcare team will closely monitor your recovery and begin gentle rehabilitation activities as your body allows.
 
-- Focus is on pain management
-- Early mobilization as tolerated
-- Basic range of motion exercises
-- Wound care and monitoring
-- Education about activity restrictions
+Key priorities during this early phase include:
+
+- **Pain management** - Controlling discomfort to allow for rest and early movement
+- **Early mobilization as tolerated** - Gentle movement, often starting with sitting up, standing, or short walks, depending on your procedure
+- **Basic range of motion exercises** - Simple movements to prevent stiffness, typically guided by your physical therapist
+- **Wound care and monitoring** - Ensuring the surgical site heals properly and watching for signs of infection
+- **Education about activity restrictions** - Learning what you can and cannot do during recovery to protect the surgical site
 
 ### Early Rehabilitation Phase (Weeks 2-6)
 
-As healing progresses:
+As your body begins to heal more substantially, rehabilitation becomes more active. This phase focuses on gradually increasing your activity level while respecting your body's healing process. The goal is to build on the foundation established in the immediate post-operative period.
 
-- Gradual increase in activity level
-- More active range of motion exercises
-- Beginning of strengthening exercises
-- Gait training if applicable
-- Continued education and support
+During this phase, you can expect:
+
+- **Gradual increase in activity level** - Your therapist will help you safely progress from basic movements to more challenging activities
+- **More active range of motion exercises** - Moving beyond passive movements to active exercises that you control
+- **Beginning of strengthening exercises** - Light resistance work to rebuild muscle strength that may have been lost
+- **Gait training if applicable** - Learning to walk properly again after procedures affecting the legs, hips, or back
+- **Continued education and support** - Ongoing guidance about your recovery timeline and what to expect next
 
 ### Intermediate Phase (Weeks 6-12)
 

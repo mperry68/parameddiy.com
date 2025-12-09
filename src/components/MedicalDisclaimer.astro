@@ -16,9 +16,10 @@ const position = Astro.props.position || 'bottom';
   .disclaimer {
     margin: 2rem 0;
     padding: 1.5rem;
-    background: #fef3c7;
+    background: rgba(245, 158, 11, 0.1);
     border-left: 4px solid #f59e0b;
-    border-radius: 6px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
   }
 
   .disclaimer-top {
@@ -34,7 +35,7 @@ const position = Astro.props.position || 'bottom';
   .disclaimer-content {
     font-size: 0.875rem;
     line-height: 1.7;
-    color: #92400e;
+    color: #fbbf24;
   }
 
   .disclaimer-content strong {

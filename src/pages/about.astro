@@ -102,6 +102,10 @@ import AdSlot from '../components/AdSlot.astro';
   .about-content h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .about-content section {
@@ -111,12 +115,12 @@ import AdSlot from '../components/AdSlot.astro';
   .about-content h2 {
     font-size: 1.75rem;
     margin-bottom: 1rem;
-    color: #1f2937;
+    color: #cbd5e1;
   }
 
   .about-content p {
     margin-bottom: 1rem;
-    color: #374151;
+    color: #cbd5e1;
   }
 
   .about-content ul {
@@ -126,19 +130,21 @@ import AdSlot from '../components/AdSlot.astro';
 
   .about-content li {
     margin-bottom: 0.5rem;
-    color: #374151;
+    color: #cbd5e1;
   }
 
   .notice-box {
-    background: #fef3c7;
+    background: rgba(245, 158, 11, 0.1);
     border-left: 4px solid #f59e0b;
     padding: 1.5rem;
-    border-radius: 6px;
+    border-radius: 8px;
     margin: 1.5rem 0;
+    backdrop-filter: blur(10px);
   }
 
   .notice-box p {
     margin-bottom: 1rem;
+    color: #fbbf24;
   }
 
   .notice-box p:last-child {
@@ -146,7 +152,7 @@ import AdSlot from '../components/AdSlot.astro';
   }
 
   .notice-box strong {
-    color: #92400e;
+    color: #fbbf24;
   }
 
   @media (max-width: 768px) {

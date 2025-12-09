@@ -152,6 +152,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"articles": {
+"common-symptoms-explained.md": {
+	id: "common-symptoms-explained.md";
+  slug: "common-symptoms-explained";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
 "ergonomics-workplace.md": {
 	id: "ergonomics-workplace.md";
   slug: "ergonomics-workplace";
@@ -169,6 +176,27 @@ declare module 'astro:content' {
 "how-long-does-flu-last.md": {
 	id: "how-long-does-flu-last.md";
   slug: "how-long-does-flu-last";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
+"how-much-water-should-i-drink.md": {
+	id: "how-much-water-should-i-drink.md";
+  slug: "how-much-water-should-i-drink";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
+"how-to-lower-cholesterol.md": {
+	id: "how-to-lower-cholesterol.md";
+  slug: "how-to-lower-cholesterol";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
+"is-bronchitis-contagious.md": {
+	id: "is-bronchitis-contagious.md";
+  slug: "is-bronchitis-contagious";
   body: string;
   collection: "articles";
   data: InferEntrySchema<"articles">
@@ -211,6 +239,13 @@ declare module 'astro:content' {
 "rehabilitation-after-surgery.md": {
 	id: "rehabilitation-after-surgery.md";
   slug: "rehabilitation-after-surgery";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
+"relieve-common-discomforts.md": {
+	id: "relieve-common-discomforts.md";
+  slug: "relieve-common-discomforts";
   body: string;
   collection: "articles";
   data: InferEntrySchema<"articles">

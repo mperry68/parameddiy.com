@@ -25,18 +25,19 @@ const { items } = Astro.props;
 
 <style>
   .toc {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: 12px;
     padding: 1.5rem;
     margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
   }
 
   .toc-title {
     font-size: 1.125rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #1f2937;
+    color: #cbd5e1;
   }
 
   .toc-list {
@@ -50,14 +51,14 @@ const { items } = Astro.props;
   }
 
   .toc-link {
-    color: #4b5563;
+    color: #94a3b8;
     text-decoration: none;
     transition: color 0.2s;
     display: block;
   }
 
   .toc-link:hover {
-    color: #2563eb;
+    color: #06b6d4;
     text-decoration: none;
   }
 

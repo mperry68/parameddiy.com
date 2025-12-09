@@ -1,6 +1,5 @@
 ---
 import { siteConfig } from '../config';
-import SearchBar from './SearchBar.astro';
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -25,9 +24,6 @@ const navItems = [
           </li>
         ))}
       </ul>
-      <div class="nav-search">
-        <SearchBar />
-      </div>
     </nav>
     <button class="mobile-menu-toggle" aria-label="Toggle menu" id="mobile-menu-toggle">
       <span></span>
@@ -75,10 +71,6 @@ const navItems = [
     gap: 2rem;
   }
 
-  .nav-search {
-    margin-left: 1rem;
-  }
-
   .nav-link {
     text-decoration: none;
     color: #4b5563;
@@ -108,13 +100,8 @@ const navItems = [
   }
 
   @media (max-width: 768px) {
-    .nav-list {
+    .nav {
       display: none;
-    }
-
-    .nav-search {
-      margin-left: 0;
-      margin-top: 1rem;
     }
 
     .mobile-menu-toggle {

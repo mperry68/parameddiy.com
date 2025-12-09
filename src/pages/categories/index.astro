@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { getCollection } from 'astro:content';
+import { categories, categoryLabels } from '../../config';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.publishedAt <= new Date();
+});
+---
+
+<BaseLayout
+  title="Categories"
+  description="Browse articles by category on Paramedical Knowledge Hub"
+>
+  <div class="categories-page">
+    <div class="page-header">
+      <h1>Article Categories</h1>
+      <p class="page-description">
+        Browse articles organized by health topics and paramedical fields
+      </p>
+    </div>
+
+    <AdSlot position="top-page" />
+
+    <div class="categories-grid">
+      {categories.map((category) => {
+        const categoryArticles = allArticles.filter((a) => a.data.category === category);
+        return (
+          <a href={`/categories/${category}`} class="category-card">
+            <h2 class="category-title">{categoryLabels[category]}</h2>
+            <p class="category-description">
+              {categoryArticles.length} article{categoryArticles.length !== 1 ? 's' : ''} available
+            </p>
+            <span class="category-link">View articles →</span>
+          </a>
+        );
+      })}
+    </div>
+
+    <AdSlot position="bottom-page" />
+  </div>
+</BaseLayout>
+
+<style>
+  .categories-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-description {
+    font-size: 1.125rem;
+    color: #6b7280;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .category-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .category-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: #2563eb;
+    text-decoration: none;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #1f2937;
+  }
+
+  .category-description {
+    color: #6b7280;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .category-link {
+    color: #2563eb;
+    font-weight: 600;
+    margin-top: auto;
+  }
+
+  .category-card:hover .category-link {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .categories-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+

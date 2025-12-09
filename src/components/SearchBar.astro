@@ -3,31 +3,33 @@
 
 <div class="search-container">
   <form class="search-form" action="/search" method="get">
-    <input
-      type="search"
-      name="q"
-      id="search-input"
-      class="search-input"
-      placeholder="Search articles..."
-      aria-label="Search articles"
-      autocomplete="off"
-    />
-    <button type="submit" class="search-button" aria-label="Search">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.35-4.35"></path>
-      </svg>
-    </button>
+    <div class="search-input-wrapper">
+      <input
+        type="search"
+        name="q"
+        id="search-input"
+        class="search-input"
+        placeholder="Search articles by title, topic, or ask a question..."
+        aria-label="Search articles"
+        autocomplete="off"
+      />
+      <button type="submit" class="search-button" aria-label="Search">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+    </div>
   </form>
 </div>
 
@@ -37,18 +39,22 @@
   }
 
   .search-form {
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
   }
 
   .search-input {
-    padding: 0.5rem 1rem;
-    padding-right: 2.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 0.9375rem;
-    width: 250px;
+    padding: 0.75rem 1rem;
+    padding-right: 3rem;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
     transition: all 0.2s;
   }
 
@@ -62,13 +68,19 @@
     background: #2563eb;
     color: #fff;
     border: none;
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.2s;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .search-button:hover {
@@ -77,7 +89,13 @@
 
   @media (max-width: 768px) {
     .search-input {
-      width: 150px;
+      font-size: 0.9375rem;
+      padding: 0.625rem 0.875rem;
+      padding-right: 2.5rem;
+    }
+
+    .search-button {
+      padding: 0.625rem 1rem;
     }
   }
 </style>

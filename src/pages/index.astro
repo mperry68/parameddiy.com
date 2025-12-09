@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import AdSlot from '../components/AdSlot.astro';
+import SearchBar from '../components/SearchBar.astro';
 import { getCollection } from 'astro:content';
 import { categoryLabels, categories } from '../config';
 
@@ -34,9 +35,11 @@ const popularCategories = categories.slice(0, 6);
           for educational purposes only and is not a substitute for professional medical advice,
           diagnosis, or treatment.
         </p>
+        <div class="hero-search">
+          <SearchBar />
+        </div>
         <div class="hero-cta">
           <a href="/articles" class="btn btn-primary">Browse Articles</a>
-          <a href="/disclaimer" class="btn btn-secondary">Read Disclaimer</a>
         </div>
       </div>
     </section>
@@ -136,6 +139,12 @@ const popularCategories = categories.slice(0, 6);
     max-width: 700px;
     margin: 0 auto 2rem;
     line-height: 1.7;
+  }
+
+  .hero-search {
+    max-width: 600px;
+    margin: 2rem auto;
+    width: 100%;
   }
 
   .hero-cta {

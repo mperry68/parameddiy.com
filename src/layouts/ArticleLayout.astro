@@ -4,6 +4,7 @@ import TableOfContents from '../components/TableOfContents.astro';
 import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
 import AdSlot from '../components/AdSlot.astro';
 import Tag from '../components/Tag.astro';
+import References from '../components/References.astro';
 import { formatDate } from '../utils/formatDate';
 import { getTableOfContents } from '../utils/getTableOfContents';
 import { categoryLabels, siteConfig } from '../config';
@@ -19,6 +20,7 @@ const { data, slug } = article;
 const readingTime = data.readingTime || 5;
 const toc = getTableOfContents(content);
 const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
+const lastUpdated = data.updatedAt || data.publishedAt;
 ---
 
 <BaseLayout
@@ -60,6 +62,10 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
           <span class="reading-time">{readingTime} min read</span>
         </div>
         <h1 class="article-title">{data.title}</h1>
+        <div class="article-updated">
+          <span class="updated-label">Last updated:</span>
+          <time datetime={lastUpdated.toISOString()}>{formatDate(lastUpdated)}</time>
+        </div>
         {data.tags.length > 0 && (
           <div class="article-tags">
             {data.tags.map((tag) => (
@@ -85,6 +91,8 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
       <AdSlot position="in-content" />
 
+      <References />
+
       <MedicalDisclaimer position="bottom" />
     </article>
   </div>
@@ -92,7 +100,7 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
 <style>
   .article-page {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
   }
@@ -149,7 +157,7 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
   .article-body-wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
     max-width: 100%;
   }
 
@@ -161,7 +169,7 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
   @media (min-width: 1024px) {
     .article-body {
-      max-width: none;
+      max-width: 1000px;
     }
   }
 
@@ -243,28 +251,36 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
     display: none;
   }
 
+  .article-updated {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .updated-label {
+    font-weight: 500;
+  }
+
   @media (min-width: 1024px) {
     .article-body-wrapper {
-      grid-template-columns: 1fr 320px;
-      gap: 4rem;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 2rem;
     }
 
     .article-sidebar {
       display: block;
     }
+
+    .article-body {
+      max-width: none;
+    }
   }
 
   @media (min-width: 1280px) {
     .article-body-wrapper {
-      grid-template-columns: 1.8fr 1fr;
-      gap: 4rem;
-    }
-  }
-
-  @media (min-width: 1536px) {
-    .article-body-wrapper {
-      grid-template-columns: 2fr 1fr;
-      gap: 5rem;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 3rem;
     }
   }
 
@@ -284,7 +300,12 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
   @media (min-width: 768px) and (max-width: 1023px) {
     .article-body-wrapper {
-      gap: 3rem;
+      gap: 2rem;
+    }
+
+    .article-sidebar {
+      display: block;
+      margin-top: 2rem;
     }
   }
 </style>

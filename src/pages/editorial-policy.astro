@@ -1,0 +1,266 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+---
+
+<BaseLayout
+  title="Editorial Policy"
+  description="Learn about our editorial standards, content review process, and commitment to providing accurate health information."
+>
+  <div class="editorial-policy-page">
+    <article class="editorial-content">
+      <h1>Editorial Policy</h1>
+
+      <AdSlot position="top-page" />
+
+      <section>
+        <h2>Our Commitment to Accuracy</h2>
+        <p>
+          At Paramedical Knowledge Hub, we are committed to providing accurate, evidence-based health
+          information that empowers our readers to make informed decisions about their health and
+          wellbeing. Our editorial policy reflects our dedication to maintaining the highest standards
+          of content quality, accuracy, and responsible publishing.
+        </p>
+      </section>
+
+      <section>
+        <h2>Content Standards</h2>
+        <h3>Accuracy Guidelines</h3>
+        <p>
+          All content published on our website undergoes a rigorous review process to ensure accuracy
+          and reliability. We base our articles on:
+        </p>
+        <ul>
+          <li>Peer-reviewed medical research and scientific studies</li>
+          <li>Guidelines from reputable health organizations (CDC, WHO, NHS, Mayo Clinic, etc.)</li>
+          <li>Current medical consensus and evidence-based practices</li>
+          <li>Expert consultation when necessary</li>
+        </ul>
+
+        <h3>Review Standards</h3>
+        <p>
+          Every article is reviewed by our editorial team for:
+        </p>
+        <ul>
+          <li>Medical accuracy and factual correctness</li>
+          <li>Clarity and readability</li>
+          <li>Appropriate tone and language</li>
+          <li>Completeness of information</li>
+          <li>Proper sourcing and citations</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Source Verification</h2>
+        <p>
+          We prioritize information from authoritative sources, including:
+        </p>
+        <ul>
+          <li>Government health agencies (CDC, NHS, WHO)</li>
+          <li>Academic medical institutions and research centers</li>
+          <li>Peer-reviewed medical journals (PubMed, medical databases)</li>
+          <li>Established medical organizations (Mayo Clinic, Cleveland Clinic, etc.)</li>
+          <li>Professional medical associations</li>
+        </ul>
+        <p>
+          All articles include references to source materials, allowing readers to verify information
+          and access additional resources.
+        </p>
+      </section>
+
+      <section>
+        <h2>Responsible Publishing</h2>
+        <h3>Content Updates</h3>
+        <p>
+          Medical knowledge evolves continuously. We regularly review and update our content to reflect:
+        </p>
+        <ul>
+          <li>New research findings and medical guidelines</li>
+          <li>Updated recommendations from health authorities</li>
+          <li>Changes in medical consensus</li>
+          <li>Reader feedback and questions</li>
+        </ul>
+        <p>
+          Each article displays a "Last updated" date to indicate when the content was most recently
+          reviewed and revised.
+        </p>
+
+        <h3>Editorial Independence</h3>
+        <p>
+          Our editorial decisions are made independently, based on medical evidence and reader needs.
+          We maintain editorial independence from advertisers and sponsors, ensuring that content
+          decisions prioritize accuracy and reader benefit.
+        </p>
+      </section>
+
+      <section>
+        <h2>E-E-A-T Commitment</h2>
+        <p>
+          We are committed to demonstrating Expertise, Authoritativeness, and Trustworthiness (E-E-A-T)
+          in all our content:
+        </p>
+        <ul>
+          <li>
+            <strong>Expertise:</strong> Our content is written and reviewed by individuals with
+            knowledge and experience in health and medical topics.
+          </li>
+          <li>
+            <strong>Authoritativeness:</strong> We cite reputable sources and maintain transparency
+            about our editorial process.
+          </li>
+          <li>
+            <strong>Trustworthiness:</strong> We clearly communicate our limitations, provide
+            disclaimers, and encourage readers to consult healthcare professionals.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Medical Disclaimer</h2>
+        <div class="disclaimer-box">
+          <p>
+            <strong>Important:</strong> All content on Paramedical Knowledge Hub is for educational
+            purposes only and is not intended as a substitute for professional medical advice,
+            diagnosis, or treatment.
+          </p>
+          <p>
+            Always seek the advice of your physician or other qualified health provider with any
+            questions you may have regarding a medical condition. Never disregard professional medical
+            advice or delay in seeking it because of something you have read on this website.
+          </p>
+          <p>
+            If you think you may have a medical emergency, call your doctor or emergency services
+            immediately.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Corrections and Feedback</h2>
+        <p>
+          We strive for accuracy, but we recognize that errors can occur. If you identify an error in
+          our content or have concerns about accuracy, please{' '}
+          <a href="/contact">contact us</a>. We take all feedback seriously and will investigate and
+          correct any verified errors promptly.
+        </p>
+        <p>
+          We also welcome suggestions for improving our content, topics you'd like us to cover, or
+          questions about our editorial process.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact Us</h2>
+        <p>
+          For questions about our editorial policy, content accuracy, or to report concerns, please{' '}
+          <a href="/contact">contact our editorial team</a>.
+        </p>
+      </section>
+
+      <AdSlot position="bottom-page" />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .editorial-policy-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .editorial-content {
+    line-height: 1.8;
+  }
+
+  .editorial-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #0f172a;
+  }
+
+  .editorial-content section {
+    margin-bottom: 3rem;
+  }
+
+  .editorial-content h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #0f172a;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .editorial-content h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #1e293b;
+  }
+
+  .editorial-content p {
+    margin-bottom: 1rem;
+    color: #334155;
+  }
+
+  .editorial-content ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+
+  .editorial-content li {
+    margin-bottom: 0.75rem;
+    color: #334155;
+    line-height: 1.7;
+  }
+
+  .editorial-content li strong {
+    color: #0f172a;
+  }
+
+  .editorial-content a {
+    color: #0891b2;
+    text-decoration: none;
+  }
+
+  .editorial-content a:hover {
+    color: #06b6d4;
+    text-decoration: underline;
+  }
+
+  .disclaimer-box {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+  }
+
+  .disclaimer-box p {
+    margin-bottom: 1rem;
+    color: #92400e;
+  }
+
+  .disclaimer-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  .disclaimer-box strong {
+    color: #92400e;
+  }
+
+  @media (max-width: 768px) {
+    .editorial-content h1 {
+      font-size: 2rem;
+    }
+
+    .editorial-content h2 {
+      font-size: 1.5rem;
+    }
+
+    .editorial-content h3 {
+      font-size: 1.125rem;
+    }
+  }
+</style>
+

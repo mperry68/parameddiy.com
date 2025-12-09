@@ -1,0 +1,103 @@
+---
+interface Props {
+  references?: Array<{ title: string; url: string }>;
+}
+
+const defaultReferences = [
+  { title: 'Mayo Clinic', url: 'https://www.mayoclinic.org' },
+  { title: 'Cleveland Clinic', url: 'https://my.clevelandclinic.org' },
+  { title: 'Centers for Disease Control and Prevention (CDC)', url: 'https://www.cdc.gov' },
+  { title: 'National Health Service (NHS)', url: 'https://www.nhs.uk' },
+  { title: 'PubMed', url: 'https://pubmed.ncbi.nlm.nih.gov' },
+];
+
+const { references = defaultReferences } = Astro.props;
+---
+
+<div class="references-section">
+  <h2 class="references-title">References</h2>
+  <p class="references-intro">
+    The information in this article is based on reputable medical sources and peer-reviewed research. For more detailed information, please consult the following resources:
+  </p>
+  <ul class="references-list">
+    {references.map((ref) => (
+      <li class="reference-item">
+        <a href={ref.url} target="_blank" rel="noopener noreferrer" class="reference-link">
+          {ref.title}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <p class="references-note">
+    <strong>Note:</strong> Links to external resources are provided for informational purposes only. We are not responsible for the content of external websites.
+  </p>
+</div>
+
+<style>
+  .references-section {
+    margin: 4rem 0 2rem;
+    padding: 2rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+  }
+
+  .references-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 1rem;
+  }
+
+  .references-intro {
+    font-size: 0.9375rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .references-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .reference-item {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .reference-item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #0891b2;
+    font-weight: bold;
+  }
+
+  .reference-link {
+    color: #0891b2;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color 0.2s;
+  }
+
+  .reference-link:hover {
+    color: #06b6d4;
+    text-decoration: underline;
+  }
+
+  .references-note {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-style: italic;
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+
+  .references-note strong {
+    color: #475569;
+  }
+</style>
+

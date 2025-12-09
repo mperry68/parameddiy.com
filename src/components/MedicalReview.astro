@@ -1,0 +1,58 @@
+---
+interface Props {
+  reviewerName?: string;
+  reviewerTitle?: string;
+}
+
+const {
+  reviewerName = 'Paramedical Knowledge Editorial Team',
+  reviewerTitle = 'Health Writer & Research Editor',
+} = Astro.props;
+---
+
+<div class="medical-review">
+  <p class="review-label">Medically Reviewed By</p>
+  <p class="review-info">
+    <strong>{reviewerName}</strong> — {reviewerTitle}
+  </p>
+  <p class="review-note">
+    Reviewed for clarity and accuracy by the Paramedical Knowledge Editorial Team.
+  </p>
+</div>
+
+<style>
+  .medical-review {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: #ecfeff;
+    border-left: 3px solid #0891b2;
+    border-radius: 6px;
+  }
+
+  .review-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #0891b2;
+    margin-bottom: 0.5rem;
+  }
+
+  .review-info {
+    font-size: 0.9375rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+
+  .review-info strong {
+    color: #0f172a;
+  }
+
+  .review-note {
+    font-size: 0.875rem;
+    color: #475569;
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+</style>
+

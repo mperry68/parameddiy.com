@@ -60,6 +60,21 @@ import AdSlot from '../components/AdSlot.astro';
       </section>
 
       <section>
+        <h2>Our Editorial Team</h2>
+        <p>
+          Our content is created and reviewed by a team of health writers and research editors
+          committed to accuracy and clarity. While we don't provide personalized medical advice, we
+          strive to present information in a way that helps readers understand health topics and make
+          informed decisions.
+        </p>
+        <p>
+          All articles undergo editorial review for accuracy, clarity, and completeness. We base our
+          content on reputable sources including peer-reviewed research, guidelines from major health
+          organizations, and current medical consensus.
+        </p>
+      </section>
+
+      <section>
         <h2>Our Commitment</h2>
         <p>
           We are committed to providing accurate, up-to-date information from reliable sources.
@@ -72,6 +87,10 @@ import AdSlot from '../components/AdSlot.astro';
           <li>Stay informed about the latest medical research and guidelines</li>
           <li>Make healthcare decisions in consultation with their medical team</li>
         </ul>
+        <p>
+          For more information about our editorial standards and review process, please see our{' '}
+          <a href="/editorial-policy">Editorial Policy</a>.
+        </p>
       </section>
 
       <section>
@@ -102,10 +121,7 @@ import AdSlot from '../components/AdSlot.astro';
   .about-content h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0f172a;
   }
 
   .about-content section {
@@ -115,12 +131,12 @@ import AdSlot from '../components/AdSlot.astro';
   .about-content h2 {
     font-size: 1.75rem;
     margin-bottom: 1rem;
-    color: #cbd5e1;
+    color: #0f172a;
   }
 
   .about-content p {
     margin-bottom: 1rem;
-    color: #cbd5e1;
+    color: #334155;
   }
 
   .about-content ul {
@@ -130,21 +146,30 @@ import AdSlot from '../components/AdSlot.astro';
 
   .about-content li {
     margin-bottom: 0.5rem;
-    color: #cbd5e1;
+    color: #334155;
+  }
+
+  .about-content a {
+    color: #0891b2;
+    text-decoration: none;
+  }
+
+  .about-content a:hover {
+    color: #06b6d4;
+    text-decoration: underline;
   }
 
   .notice-box {
-    background: rgba(245, 158, 11, 0.1);
+    background: #fef3c7;
     border-left: 4px solid #f59e0b;
     padding: 1.5rem;
     border-radius: 8px;
     margin: 1.5rem 0;
-    backdrop-filter: blur(10px);
   }
 
   .notice-box p {
     margin-bottom: 1rem;
-    color: #fbbf24;
+    color: #92400e;
   }
 
   .notice-box p:last-child {
@@ -152,7 +177,7 @@ import AdSlot from '../components/AdSlot.astro';
   }
 
   .notice-box strong {
-    color: #fbbf24;
+    color: #92400e;
   }
 
   @media (max-width: 768px) {

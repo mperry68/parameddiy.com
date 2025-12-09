@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   });
 
   return articles.map((article) => ({
-    params: { slug: article.data.slug },
+    params: { slug: article.slug },
     props: { article },
   }));
 }

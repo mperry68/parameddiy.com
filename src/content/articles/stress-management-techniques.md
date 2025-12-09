@@ -1,6 +1,5 @@
 ---
-title: Effective Stress Management Techniques
-slug: stress-management-techniques
+title: "Effective Stress Management Techniques"
 summary: Learn practical techniques and strategies to manage stress effectively and improve your overall wellbeing and quality of life.
 category: mental_wellbeing
 tags: ['stress management', 'mental health', 'wellness', 'coping strategies']

@@ -1,6 +1,5 @@
 ---
-title: General Health Tips for Everyday Living
-slug: general-health-tips
+title: "General Health Tips for Everyday Living"
 summary: Practical, evidence-based tips for maintaining good health and preventing common health issues in your daily life.
 category: general_health
 tags: ['health', 'wellness', 'prevention', 'lifestyle']

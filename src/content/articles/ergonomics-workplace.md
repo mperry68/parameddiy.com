@@ -1,6 +1,5 @@
 ---
 title: "Workplace Ergonomics: Setting Up for Health"
-slug: ergonomics-workplace
 summary: Learn how to set up your workspace ergonomically to prevent pain, injury, and discomfort during long work hours.
 category: occupational_therapy
 tags: ['ergonomics', 'workplace health', 'prevention', 'posture']

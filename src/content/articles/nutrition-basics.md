@@ -1,6 +1,5 @@
 ---
-title: Nutrition Basics for Optimal Health
-slug: nutrition-basics
+title: "Nutrition Basics for Optimal Health"
 summary: Discover the fundamentals of good nutrition, including macronutrients, micronutrients, and practical tips for maintaining a balanced diet.
 category: nutrition
 tags: ['nutrition', 'diet', 'health', 'wellness']

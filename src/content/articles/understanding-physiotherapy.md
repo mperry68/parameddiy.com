@@ -1,6 +1,5 @@
 ---
-title: Understanding Physiotherapy: A Comprehensive Guide
-slug: understanding-physiotherapy
+title: "Understanding Physiotherapy: A Comprehensive Guide"
 summary: Learn about the fundamentals of physiotherapy, its benefits, and when to consider physical therapy for various conditions.
 category: physiotherapy
 tags: ['physiotherapy', 'rehabilitation', 'physical therapy', 'health']

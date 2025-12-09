@@ -1,6 +1,5 @@
 ---
-title: An Overview of Occupational Therapy
-slug: occupational-therapy-overview
+title: "An Overview of Occupational Therapy"
 summary: Discover what occupational therapy is, who can benefit from it, and how it helps people achieve independence in daily activities.
 category: occupational_therapy
 tags: ['occupational therapy', 'rehabilitation', 'independence', 'daily living']

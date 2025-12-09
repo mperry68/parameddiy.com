@@ -1,6 +1,5 @@
 ---
-title: Rehabilitation After Surgery: What to Expect
-slug: rehabilitation-after-surgery
+title: "Rehabilitation After Surgery: What to Expect"
 summary: Learn about the rehabilitation process following surgery, including timelines, common exercises, and tips for successful recovery.
 category: rehabilitation
 tags: ['rehabilitation', 'surgery', 'recovery', 'physical therapy']

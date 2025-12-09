@@ -1,6 +1,5 @@
 ---
-title: Mental Wellbeing Strategies for Daily Life
-slug: mental-wellbeing-strategies
+title: "Mental Wellbeing Strategies for Daily Life"
 summary: Explore practical strategies and techniques to support your mental health and emotional wellbeing in everyday life.
 category: mental_wellbeing
 tags: ['mental health', 'wellbeing', 'self-care', 'stress management']

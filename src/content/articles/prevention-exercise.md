@@ -1,6 +1,5 @@
 ---
-title: Exercise for Injury Prevention
-slug: prevention-exercise
+title: "Exercise for Injury Prevention"
 summary: Learn how regular exercise and proper movement patterns can help prevent injuries and maintain long-term physical health.
 category: prevention
 tags: ['exercise', 'injury prevention', 'fitness', 'health']

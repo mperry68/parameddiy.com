@@ -69,8 +69,6 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
         )}
       </header>
 
-      <MedicalDisclaimer position="top" />
-
       <AdSlot position="top-article" />
 
       <div class="article-body-wrapper">
@@ -94,14 +92,14 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
 <style>
   .article-page {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
   }
 
   .article-content {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
   }
 
   .article-header {
@@ -151,12 +149,20 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
   .article-body-wrapper {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 3rem;
+    max-width: 100%;
   }
 
   .article-body {
     line-height: 1.8;
     color: #1e293b;
+    max-width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .article-body {
+      max-width: none;
+    }
   }
 
   .article-body :global(h2) {
@@ -176,6 +182,13 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
   .article-body :global(p) {
     margin-bottom: 1.25rem;
     color: #334155;
+    max-width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .article-body :global(p) {
+      font-size: 1.0625rem;
+    }
   }
 
   .article-body :global(ul),
@@ -232,11 +245,26 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
   @media (min-width: 1024px) {
     .article-body-wrapper {
-      grid-template-columns: 1fr 300px;
+      grid-template-columns: 1fr 320px;
+      gap: 4rem;
     }
 
     .article-sidebar {
       display: block;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .article-body-wrapper {
+      grid-template-columns: 1.8fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .article-body-wrapper {
+      grid-template-columns: 2fr 1fr;
+      gap: 5rem;
     }
   }
 
@@ -247,6 +275,16 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
     .article-page {
       padding: 1.5rem 1rem;
+    }
+
+    .article-body-wrapper {
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .article-body-wrapper {
+      gap: 3rem;
     }
   }
 </style>

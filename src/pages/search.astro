@@ -295,10 +295,7 @@ const hasResults = searchResults.length > 0;
   .search-header h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0f172a;
   }
 
   .search-form-large {
@@ -311,42 +308,38 @@ const hasResults = searchResults.length > 0;
   .search-input-large {
     flex: 1;
     padding: 0.75rem 1rem;
-    border: 2px solid rgba(6, 182, 212, 0.3);
-    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     font-size: 1rem;
-    transition: all 0.3s;
-    background: rgba(30, 41, 59, 0.6);
-    color: #f1f5f9;
-    backdrop-filter: blur(10px);
+    transition: all 0.2s;
+    background: #ffffff;
+    color: #0f172a;
   }
 
   .search-input-large::placeholder {
-    color: #64748b;
+    color: #94a3b8;
   }
 
   .search-input-large:focus {
     outline: none;
-    border-color: #06b6d4;
-    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2), 0 0 20px rgba(6, 182, 212, 0.1);
+    border-color: #0891b2;
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
   }
 
   .search-button-large {
     padding: 0.75rem 2rem;
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: #0891b2;
     color: #fff;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    transition: background 0.2s;
   }
 
   .search-button-large:hover {
-    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
-    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
-    transform: translateY(-1px);
+    background: #06b6d4;
   }
 
   .search-results {
@@ -361,7 +354,7 @@ const hasResults = searchResults.length > 0;
 
   .query-type {
     font-size: 0.875rem;
-    color: #06b6d4;
+    color: #0891b2;
     font-style: italic;
   }
 
@@ -402,13 +395,13 @@ const hasResults = searchResults.length > 0;
   }
 
   .suggestions-list a {
-    color: #06b6d4;
+    color: #0891b2;
     text-decoration: none;
     transition: color 0.2s;
   }
 
   .suggestions-list a:hover {
-    color: #22d3ee;
+    color: #06b6d4;
     text-decoration: none;
   }
 
@@ -438,20 +431,18 @@ const hasResults = searchResults.length > 0;
   .search-tag {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: rgba(30, 41, 59, 0.6);
-    color: #cbd5e1;
-    border: 1px solid rgba(6, 182, 212, 0.3);
-    border-radius: 8px;
+    background: #f8fafc;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
     text-decoration: none;
-    transition: all 0.3s;
-    backdrop-filter: blur(10px);
+    transition: all 0.2s;
   }
 
   .search-tag:hover {
-    background: rgba(30, 41, 59, 0.8);
-    border-color: rgba(6, 182, 212, 0.5);
-    color: #06b6d4;
-    transform: translateY(-1px);
+    background: #ecfeff;
+    border-color: #0891b2;
+    color: #0891b2;
     text-decoration: none;
   }
 

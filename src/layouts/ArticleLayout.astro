@@ -121,12 +121,11 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
   .article-category {
     font-weight: 600;
     text-transform: uppercase;
-    color: #06b6d4;
+    color: #0891b2;
     letter-spacing: 0.05em;
-    background: rgba(6, 182, 212, 0.1);
+    background: #ecfeff;
     padding: 0.25rem 0.75rem;
-    border-radius: 6px;
-    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 4px;
   }
 
   .reading-time::before {
@@ -139,10 +138,7 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0f172a;
   }
 
   .article-tags {
@@ -160,33 +156,33 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
 
   .article-body {
     line-height: 1.8;
-    color: #cbd5e1;
+    color: #1e293b;
   }
 
   .article-body :global(h2) {
     margin-top: 2.5rem;
     margin-bottom: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(6, 182, 212, 0.2);
-    color: #cbd5e1;
+    border-top: 1px solid #e2e8f0;
+    color: #0f172a;
   }
 
   .article-body :global(h3) {
     margin-top: 2rem;
     margin-bottom: 0.75rem;
-    color: #cbd5e1;
+    color: #1e293b;
   }
 
   .article-body :global(p) {
     margin-bottom: 1.25rem;
-    color: #cbd5e1;
+    color: #334155;
   }
 
   .article-body :global(ul),
   .article-body :global(ol) {
     margin-bottom: 1.25rem;
     padding-left: 1.5rem;
-    color: #cbd5e1;
+    color: #334155;
   }
 
   .article-body :global(li) {
@@ -194,34 +190,34 @@ const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
   }
 
   .article-body :global(blockquote) {
-    border-left: 4px solid #06b6d4;
+    border-left: 4px solid #0891b2;
     padding-left: 1.5rem;
     margin: 1.5rem 0;
-    color: #94a3b8;
+    color: #475569;
     font-style: italic;
-    background: rgba(6, 182, 212, 0.05);
+    background: #f8fafc;
     padding: 1rem 1.5rem;
     border-radius: 8px;
   }
 
   .article-body :global(code) {
-    background: rgba(30, 41, 59, 0.8);
+    background: #f1f5f9;
     padding: 0.125rem 0.375rem;
     border-radius: 4px;
     font-size: 0.875em;
     font-family: 'Courier New', monospace;
-    color: #06b6d4;
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    color: #0891b2;
+    border: 1px solid #e2e8f0;
   }
 
   .article-body :global(pre) {
-    background: rgba(15, 23, 42, 0.8);
+    background: #1e293b;
     color: #f1f5f9;
     padding: 1.5rem;
     border-radius: 8px;
     overflow-x: auto;
     margin: 1.5rem 0;
-    border: 1px solid rgba(6, 182, 212, 0.2);
+    border: 1px solid #334155;
   }
 
   .article-body :global(pre code) {

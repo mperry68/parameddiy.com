@@ -38,18 +38,18 @@ const readingTime = data.readingTime || 5;
 
 <style>
   .article-card {
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(6, 182, 212, 0.2);
-    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
     overflow: hidden;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
   .article-card:hover {
-    box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.3), 0 0 20px rgba(6, 182, 212, 0.1);
-    transform: translateY(-4px);
-    border-color: rgba(6, 182, 212, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
   }
 
   .article-card-link {
@@ -73,39 +73,37 @@ const readingTime = data.readingTime || 5;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #06b6d4;
+    color: #0891b2;
     letter-spacing: 0.05em;
-    background: rgba(6, 182, 212, 0.1);
+    background: #ecfeff;
     padding: 0.25rem 0.75rem;
-    border-radius: 6px;
-    border: 1px solid rgba(6, 182, 212, 0.3);
+    border-radius: 4px;
   }
 
   .article-featured {
     font-size: 0.75rem;
     font-weight: 600;
-    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
-    color: #f1f5f9;
+    background: #fef3c7;
+    color: #92400e;
     padding: 0.25rem 0.5rem;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+    border-radius: 4px;
   }
 
   .article-card-title {
     font-size: 1.25rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #f1f5f9;
+    color: #0f172a;
     line-height: 1.3;
     transition: color 0.2s;
   }
 
   .article-card:hover .article-card-title {
-    color: #06b6d4;
+    color: #0891b2;
   }
 
   .article-card-summary {
-    color: #94a3b8;
+    color: #475569;
     font-size: 0.9375rem;
     line-height: 1.6;
     margin-bottom: 1rem;
@@ -127,7 +125,7 @@ const readingTime = data.readingTime || 5;
     &::before {
       content: '•';
       margin-right: 0.5rem;
-      color: #475569;
+      color: #cbd5e1;
     }
   }
 
@@ -139,11 +137,10 @@ const readingTime = data.readingTime || 5;
 
   .tag {
     font-size: 0.75rem;
-    background: rgba(51, 65, 85, 0.5);
-    color: #cbd5e1;
+    background: #f1f5f9;
+    color: #475569;
     padding: 0.25rem 0.5rem;
-    border-radius: 6px;
-    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 4px;
   }
 </style>
 

@@ -5,6 +5,8 @@ import Pagination from '../../components/Pagination.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { getCollection } from 'astro:content';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => {
     return data.publishedAt <= new Date();
@@ -97,10 +99,7 @@ const displayTag = articles[0]?.data.tags.find(
   }
 
   .page-header h1 {
-    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0f172a;
   }
 
   .page-description {

@@ -6,6 +6,8 @@ import AdSlot from '../../components/AdSlot.astro';
 import { getCollection } from 'astro:content';
 import { categories, categoryLabels } from '../../config';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => {
     return data.publishedAt <= new Date();
@@ -83,13 +85,7 @@ const paginatedArticles = sortedArticles.slice(startIndex, startIndex + ITEMS_PE
   .page-header h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-  }
-
-  .page-header h1 {
-    background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #0f172a;
   }
 
   .page-description {
@@ -119,19 +115,16 @@ const paginatedArticles = sortedArticles.slice(startIndex, startIndex + ITEMS_PE
   .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: #0891b2;
     color: #fff;
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    transition: background 0.2s;
   }
 
   .btn:hover {
-    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
-    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
-    transform: translateY(-2px);
+    background: #06b6d4;
     text-decoration: none;
   }
 

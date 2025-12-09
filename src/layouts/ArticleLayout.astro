@@ -1,0 +1,240 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+import AdSlot from '../components/AdSlot.astro';
+import Tag from '../components/Tag.astro';
+import { formatDate } from '../utils/formatDate';
+import { getTableOfContents } from '../utils/getTableOfContents';
+import { categoryLabels, siteConfig } from '../config';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  content: string;
+}
+
+const { article, content } = Astro.props;
+const { data, slug } = article;
+const readingTime = data.readingTime || 5;
+const toc = getTableOfContents(content);
+const canonicalURL = new URL(`/articles/${slug}`, siteConfig.url);
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.summary}
+  type="article"
+>
+  <Fragment slot="head">
+    <!-- Article JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: data.title,
+      description: data.summary,
+      image: new URL(siteConfig.ogImage, siteConfig.url).toString(),
+      datePublished: data.publishedAt.toISOString(),
+      dateModified: (data.updatedAt || data.publishedAt).toISOString(),
+      author: {
+        '@type': 'Organization',
+        name: siteConfig.author.name,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: siteConfig.name,
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonicalURL.toString(),
+      },
+    })} />
+  </Fragment>
+
+  <div class="article-page">
+    <article class="article-content">
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="article-category">{categoryLabels[data.category]}</span>
+          <time datetime={data.publishedAt.toISOString()}>{formatDate(data.publishedAt)}</time>
+          <span class="reading-time">{readingTime} min read</span>
+        </div>
+        <h1 class="article-title">{data.title}</h1>
+        {data.tags.length > 0 && (
+          <div class="article-tags">
+            {data.tags.map((tag) => (
+              <Tag tag={tag} href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} />
+            ))}
+          </div>
+        )}
+      </header>
+
+      <MedicalDisclaimer position="top" />
+
+      <AdSlot position="top-article" />
+
+      <div class="article-body-wrapper">
+        <div class="article-body">
+          <slot />
+        </div>
+        {toc.length > 0 && (
+          <aside class="article-sidebar">
+            <TableOfContents items={toc} />
+            <AdSlot position="sidebar" />
+          </aside>
+        )}
+      </div>
+
+      <AdSlot position="in-content" />
+
+      <MedicalDisclaimer position="bottom" />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .article-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .article-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .article-header {
+    margin-bottom: 2rem;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+  }
+
+  .article-category {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #2563eb;
+    letter-spacing: 0.05em;
+  }
+
+  .reading-time::before {
+    content: '•';
+    margin: 0 0.5rem;
+  }
+
+  .article-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .article-body-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .article-body {
+    line-height: 1.8;
+    color: #374151;
+  }
+
+  .article-body :global(h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .article-body :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .article-body :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  .article-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .article-body :global(blockquote) {
+    border-left: 4px solid #2563eb;
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: #4b5563;
+    font-style: italic;
+  }
+
+  .article-body :global(code) {
+    background: #f3f4f6;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    font-size: 0.875em;
+    font-family: 'Courier New', monospace;
+  }
+
+  .article-body :global(pre) {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .article-body :global(pre code) {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .article-sidebar {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .article-body-wrapper {
+      grid-template-columns: 1fr 300px;
+    }
+
+    .article-sidebar {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .article-title {
+      font-size: 2rem;
+    }
+
+    .article-page {
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>
+

@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Learn about Paramedical Knowledge Hub and our mission to provide educational health information."
+>
+  <div class="about-page">
+    <article class="about-content">
+      <h1>About Paramedical Knowledge Hub</h1>
+
+      <AdSlot position="top-page" />
+
+      <section>
+        <h2>Our Mission</h2>
+        <p>
+          Paramedical Knowledge Hub is dedicated to providing accessible, educational information
+          about general health and paramedical topics. Our goal is to empower individuals with
+          knowledge that can help them make informed decisions about their health and wellbeing.
+        </p>
+      </section>
+
+      <section>
+        <h2>What We Offer</h2>
+        <p>
+          Our website features a comprehensive collection of articles covering various aspects of:
+        </p>
+        <ul>
+          <li>Prevention strategies and health maintenance</li>
+          <li>Rehabilitation techniques and recovery</li>
+          <li>Physiotherapy and physical therapy</li>
+          <li>Occupational therapy</li>
+          <li>Nutrition and dietary guidance</li>
+          <li>Mental wellbeing and psychological health</li>
+          <li>General health information</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Important Notice</h2>
+        <div class="notice-box">
+          <p>
+            <strong>All content on this website is for educational purposes only.</strong> The
+            information provided is not intended to be a substitute for professional medical
+            advice, diagnosis, or treatment.
+          </p>
+          <p>
+            Always seek the advice of your physician or other qualified health provider with any
+            questions you may have regarding a medical condition. Never disregard professional
+            medical advice or delay in seeking it because of something you have read on this
+            website.
+          </p>
+          <p>
+            If you think you may have a medical emergency, call your doctor or emergency services
+            immediately.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Our Commitment</h2>
+        <p>
+          We are committed to providing accurate, up-to-date information from reliable sources.
+          However, medical knowledge is constantly evolving, and individual circumstances vary. We
+          encourage all readers to:
+        </p>
+        <ul>
+          <li>Consult with qualified healthcare professionals for personalized advice</li>
+          <li>Verify information with multiple reputable sources</li>
+          <li>Stay informed about the latest medical research and guidelines</li>
+          <li>Make healthcare decisions in consultation with their medical team</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Contact Us</h2>
+        <p>
+          If you have questions, suggestions, or feedback about our content, please{' '}
+          <a href="/contact">contact us</a>. We value your input and are always working to improve
+          the quality and usefulness of our educational resources.
+        </p>
+      </section>
+
+      <AdSlot position="bottom-page" />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .about-content {
+    line-height: 1.8;
+  }
+
+  .about-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-content section {
+    margin-bottom: 2.5rem;
+  }
+
+  .about-content h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .about-content p {
+    margin-bottom: 1rem;
+    color: #374151;
+  }
+
+  .about-content ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+
+  .about-content li {
+    margin-bottom: 0.5rem;
+    color: #374151;
+  }
+
+  .notice-box {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+  }
+
+  .notice-box p {
+    margin-bottom: 1rem;
+  }
+
+  .notice-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  .notice-box strong {
+    color: #92400e;
+  }
+
+  @media (max-width: 768px) {
+    .about-content h1 {
+      font-size: 2rem;
+    }
+
+    .about-content h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+

@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Paramedical Knowledge Hub. We welcome your questions, feedback, and suggestions."
+>
+  <div class="contact-page">
+    <article class="contact-content">
+      <h1>Contact Us</h1>
+
+      <AdSlot position="top-page" />
+
+      <p class="contact-intro">
+        We'd love to hear from you! If you have questions, feedback, or suggestions about our
+        content, please use the form below. Please note that we cannot provide medical advice or
+        answer specific health-related questions.
+      </p>
+
+      <form class="contact-form" id="contact-form">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required aria-required="true" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required aria-required="true" />
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <input type="text" id="subject" name="subject" required aria-required="true" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
+            aria-required="true"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-submit">Send Message</button>
+        </div>
+
+        <div class="form-message" id="form-message" role="alert" aria-live="polite"></div>
+      </form>
+
+      <div class="contact-note">
+        <p>
+          <strong>Note:</strong> This is a placeholder contact form. In a production environment,
+          you would need to implement a backend service or use a third-party service (such as
+          Formspree, Netlify Forms, or a custom API endpoint) to handle form submissions.
+        </p>
+        <p>
+          For now, the form includes client-side validation but does not actually send emails. When
+          you're ready to deploy, you can integrate with a form handling service or set up your own
+          backend endpoint.
+        </p>
+      </div>
+
+      <AdSlot position="bottom-page" />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .contact-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-intro {
+    font-size: 1.125rem;
+    color: #4b5563;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .contact-form {
+    background: #f9fafb;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+  }
+
+  .btn-submit {
+    background: #2563eb;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-submit:hover {
+    background: #1d4ed8;
+  }
+
+  .btn-submit:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+  }
+
+  .form-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
+    display: none;
+  }
+
+  .form-message.success {
+    display: block;
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+  }
+
+  .form-message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+  }
+
+  .contact-note {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    padding: 1.5rem;
+    border-radius: 6px;
+    color: #1e40af;
+  }
+
+  .contact-note p {
+    margin-bottom: 1rem;
+  }
+
+  .contact-note p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .contact-content h1 {
+      font-size: 2rem;
+    }
+
+    .contact-form {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const messageDiv = document.getElementById('form-message') as HTMLDivElement;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Client-side validation
+    const formData = new FormData(form);
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const subject = formData.get('subject') as string;
+    const message = formData.get('message') as string;
+
+    if (!name || !email || !subject || !message) {
+      showMessage('Please fill in all required fields.', 'error');
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showMessage('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    // Simulate form submission (replace with actual API call)
+    const submitButton = form.querySelector('.btn-submit') as HTMLButtonElement;
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+
+    // Simulate API delay
+    setTimeout(() => {
+      showMessage(
+        'Thank you for your message! (Note: This is a placeholder form. No message was actually sent.)',
+        'success'
+      );
+      form.reset();
+      submitButton.disabled = false;
+      submitButton.textContent = 'Send Message';
+    }, 1000);
+  });
+
+  function showMessage(text: string, type: 'success' | 'error') {
+    if (!messageDiv) return;
+    messageDiv.textContent = text;
+    messageDiv.className = `form-message ${type}`;
+    messageDiv.setAttribute('role', 'alert');
+  }
+
+  function isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+</script>
+

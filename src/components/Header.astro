@@ -1,0 +1,122 @@
+---
+import { siteConfig } from '../config';
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Articles', href: '/articles' },
+  { label: 'Categories', href: '/categories' },
+  { label: 'About', href: '/about' },
+  { label: 'Disclaimer', href: '/disclaimer' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="header">
+  <div class="header-container">
+    <a href="/" class="logo">
+      <span class="logo-text">{siteConfig.name}</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <ul class="nav-list">
+        {navItems.map((item) => (
+          <li>
+            <a href={item.href} class="nav-link">{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <button class="mobile-menu-toggle" aria-label="Toggle menu" id="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .header {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: #1f2937;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: #1f2937;
+    transition: all 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      display: none;
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const nav = document.querySelector('.nav');
+
+  toggle?.addEventListener('click', () => {
+    nav?.classList.toggle('mobile-open');
+    toggle?.classList.toggle('active');
+  });
+</script>
+

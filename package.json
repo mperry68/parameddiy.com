@@ -1,0 +1,36 @@
+{
+  "name": "parameddiy-com",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "seed": "tsx scripts/seed-placeholders.ts",
+    "download-images": "tsx scripts/download-pixabay-images.ts",
+    "download-images-scraper": "tsx scripts/download-pixabay-scraper.ts",
+    "download-images-puppeteer": "tsx scripts/download-pixabay-puppeteer.ts"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^11.0.0",
+    "@astrojs/mdx": "^3.0.0",
+    "@astrojs/sitemap": "^3.0.0",
+    "astro": "^4.15.0",
+    "marked": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-astro": "^0.13.0",
+    "puppeteer": "^24.32.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.5.0"
+  }
+}

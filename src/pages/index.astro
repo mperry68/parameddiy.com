@@ -1,0 +1,292 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { getCollection } from 'astro:content';
+import { categoryLabels, categories } from '../config';
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.publishedAt <= new Date();
+});
+
+const latestArticles = allArticles
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 6);
+
+const featuredArticles = allArticles
+  .filter((article) => article.data.featured)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+const popularCategories = categories.slice(0, 6);
+---
+
+<BaseLayout
+  title="Home"
+  description="General health and paramedical information for educational purposes. Not a replacement for professional medical advice."
+>
+  <div class="home-page">
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Paramedical Knowledge Hub</h1>
+        <p class="hero-description">
+          Your trusted source for general health and paramedical information. All content is provided
+          for educational purposes only and is not a substitute for professional medical advice,
+          diagnosis, or treatment.
+        </p>
+        <div class="hero-cta">
+          <a href="/articles" class="btn btn-primary">Browse Articles</a>
+          <a href="/disclaimer" class="btn btn-secondary">Read Disclaimer</a>
+        </div>
+      </div>
+    </section>
+
+    <AdSlot position="top-page" />
+
+    {featuredArticles.length > 0 && (
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">Featured Articles</h2>
+        </div>
+        <div class="articles-grid">
+          {featuredArticles.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Latest Articles</h2>
+        <a href="/articles" class="section-link">View all →</a>
+      </div>
+      <div class="articles-grid">
+        {latestArticles.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Popular Categories</h2>
+      </div>
+      <div class="categories-grid">
+        {popularCategories.map((category) => (
+          <a href={`/categories/${category}`} class="category-card">
+            <h3 class="category-title">{categoryLabels[category]}</h3>
+            <span class="category-count">
+              {allArticles.filter((a) => a.data.category === category).length} articles
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="section how-to-use">
+      <h2 class="section-title">How to Use This Site</h2>
+      <div class="how-to-content">
+        <div class="how-to-item">
+          <h3>Browse by Category</h3>
+          <p>Explore articles organized by health topics and paramedical fields.</p>
+        </div>
+        <div class="how-to-item">
+          <h3>Search by Tags</h3>
+          <p>Find specific topics using our tag system for easy navigation.</p>
+        </div>
+        <div class="how-to-item">
+          <h3>Read Responsibly</h3>
+          <p>
+            Remember that all information is educational. Always consult a qualified healthcare
+            professional for medical advice.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <AdSlot position="bottom-page" />
+  </div>
+</BaseLayout>
+
+<style>
+  .home-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 3rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .hero-description {
+    font-size: 1.125rem;
+    color: #4b5563;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: #2563eb;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: #1d4ed8;
+    text-decoration: none;
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+  }
+
+  .btn-secondary:hover {
+    background: #eff6ff;
+    text-decoration: none;
+  }
+
+  .section {
+    margin-bottom: 4rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .section-link {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .section-link:hover {
+    text-decoration: underline;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+
+  .category-card:hover {
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+
+  .category-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+  }
+
+  .category-count {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .how-to-use {
+    background: #f9fafb;
+    padding: 2rem;
+    border-radius: 8px;
+  }
+
+  .how-to-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .how-to-item h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+  }
+
+  .how-to-item p {
+    color: #4b5563;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .categories-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }
+</style>
+

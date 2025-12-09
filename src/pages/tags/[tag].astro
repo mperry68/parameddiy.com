@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => {
+    return data.publishedAt <= new Date();
+  });
+
+  const tagMap = new Map<string, typeof articles>();
+  articles.forEach((article) => {
+    article.data.tags.forEach((tag) => {
+      const normalizedTag = tag.toLowerCase().replace(/\s+/g, '-');
+      if (!tagMap.has(normalizedTag)) {
+        tagMap.set(normalizedTag, []);
+      }
+      tagMap.get(normalizedTag)!.push(article);
+    });
+  });
+
+  return Array.from(tagMap.entries()).map(([tag, tagArticles]) => ({
+    params: { tag },
+    props: { tag, articles: tagArticles },
+  }));
+}
+
+const { tag, articles } = Astro.props;
+const pageParam = Astro.url.searchParams.get('page');
+const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
+const ITEMS_PER_PAGE = 12;
+
+const sortedArticles = articles.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+
+const totalPages = Math.ceil(sortedArticles.length / ITEMS_PER_PAGE);
+const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+const paginatedArticles = sortedArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+const displayTag = articles[0]?.data.tags.find(
+  (t) => t.toLowerCase().replace(/\s+/g, '-') === tag
+) || tag;
+---
+
+<BaseLayout
+  title={`Articles tagged "${displayTag}"`}
+  description={`Browse articles tagged with "${displayTag}"`}
+>
+  <div class="tag-page">
+    <div class="page-header">
+      <h1>Articles tagged "{displayTag}"</h1>
+      <p class="page-description">
+        {articles.length} article{articles.length !== 1 ? 's' : ''} found
+      </p>
+    </div>
+
+    <AdSlot position="top-page" />
+
+    {articles.length === 0 ? (
+      <div class="empty-state">
+        <p>No articles found with this tag.</p>
+        <a href="/articles" class="btn">Browse All Articles</a>
+      </div>
+    ) : (
+      <>
+        <div class="articles-grid">
+          {paginatedArticles.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+
+        <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={`/tags/${tag}`} />
+      </>
+    )}
+
+    <AdSlot position="bottom-page" />
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .page-header {
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-description {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6b7280;
+  }
+
+  .empty-state p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn:hover {
+    background: #1d4ed8;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+

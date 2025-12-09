@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+---
+
+<BaseLayout
+  title="Medical Disclaimer"
+  description="Important medical disclaimer for Paramedical Knowledge Hub. This site provides educational information only."
+>
+  <div class="disclaimer-page">
+    <article class="disclaimer-content">
+      <h1>Medical Disclaimer</h1>
+
+      <AdSlot position="top-page" />
+
+      <div class="disclaimer-box">
+        <p>
+          <strong>Last Updated:</strong> {new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </p>
+      </div>
+
+      <section>
+        <h2>No Medical Advice</h2>
+        <p>
+          The information provided on Paramedical Knowledge Hub (the "Website") is for educational
+          and informational purposes only. It is not intended as a substitute for professional
+          medical advice, diagnosis, or treatment. Always seek the advice of your physician or
+          other qualified health provider with any questions you may have regarding a medical
+          condition.
+        </p>
+        <p>
+          Never disregard professional medical advice or delay in seeking it because of something
+          you have read on this Website. If you think you may have a medical emergency, call your
+          doctor or emergency services immediately.
+        </p>
+      </section>
+
+      <section>
+        <h2>Not a Healthcare Provider</h2>
+        <p>
+          Paramedical Knowledge Hub is not a healthcare provider. We do not provide medical
+          services, diagnosis, or treatment. The content on this Website is general in nature and
+          may not apply to your specific circumstances.
+        </p>
+      </section>
+
+      <section>
+        <h2>No Doctor-Patient Relationship</h2>
+        <p>
+          Your use of this Website does not create a doctor-patient relationship. The information
+          provided is not personalized medical advice. You should not act or refrain from acting
+          based on any information contained on this Website without first seeking appropriate
+          professional advice.
+        </p>
+      </section>
+
+      <section>
+        <h2>Accuracy of Information</h2>
+        <p>
+          While we strive to provide accurate and up-to-date information, medical knowledge is
+          constantly evolving. We make no representations or warranties of any kind, express or
+          implied, about the completeness, accuracy, reliability, suitability, or availability of
+          the information contained on this Website.
+        </p>
+        <p>
+          Any reliance you place on such information is strictly at your own risk. We disclaim all
+          liability and responsibility arising from any reliance placed on such materials by you or
+          any other visitor to the Website, or by anyone who may be informed of any of its
+          contents.
+        </p>
+      </section>
+
+      <section>
+        <h2>Third-Party Content and Links</h2>
+        <p>
+          This Website may contain links to third-party websites or resources. We are not
+          responsible for the content, accuracy, or opinions expressed on such websites. The
+          inclusion of any link does not imply endorsement by Paramedical Knowledge Hub.
+        </p>
+      </section>
+
+      <section>
+        <h2>Limitation of Liability</h2>
+        <p>
+          To the fullest extent permitted by law, Paramedical Knowledge Hub, its owners, operators,
+          authors, and contributors shall not be liable for any direct, indirect, incidental,
+          special, consequential, or punitive damages, or any loss of profits or revenues, whether
+          incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible
+          losses resulting from your use of this Website or reliance on any information contained
+          herein.
+        </p>
+      </section>
+
+      <section>
+        <h2>Individual Responsibility</h2>
+        <p>
+          You are solely responsible for your own health decisions. The information on this Website
+          should not be used to diagnose, treat, cure, or prevent any disease or health condition.
+          Always consult with a qualified healthcare professional before making any changes to your
+          health regimen, diet, exercise routine, or medication.
+        </p>
+      </section>
+
+      <section>
+        <h2>Emergency Situations</h2>
+        <p>
+          If you are experiencing a medical emergency, do not use this Website. Call your local
+          emergency services (e.g., 911 in the United States) or go to the nearest emergency room
+          immediately.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact Information</h2>
+        <p>
+          If you have questions about this disclaimer or the content on this Website, please{' '}
+          <a href="/contact">contact us</a>. However, please note that we cannot provide medical
+          advice or answer specific health-related questions.
+        </p>
+      </section>
+
+      <div class="acknowledgment">
+        <p>
+          <strong>By using this Website, you acknowledge that you have read, understood, and agree
+          to this Medical Disclaimer.</strong>
+        </p>
+      </div>
+
+      <AdSlot position="bottom-page" />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .disclaimer-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .disclaimer-content {
+    line-height: 1.8;
+  }
+
+  .disclaimer-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .disclaimer-box {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+  }
+
+  .disclaimer-content section {
+    margin-bottom: 2.5rem;
+  }
+
+  .disclaimer-content h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .disclaimer-content p {
+    margin-bottom: 1rem;
+    color: #374151;
+  }
+
+  .acknowledgment {
+    background: #fee2e2;
+    border-left: 4px solid #ef4444;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-top: 3rem;
+  }
+
+  .acknowledgment p {
+    margin: 0;
+    color: #991b1b;
+  }
+
+  @media (max-width: 768px) {
+    .disclaimer-content h1 {
+      font-size: 2rem;
+    }
+
+    .disclaimer-content h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+

@@ -1,0 +1,82 @@
+---
+import type { TocItem } from '../utils/getTableOfContents';
+
+interface Props {
+  items: TocItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <nav class="toc" aria-label="Table of contents">
+    <h3 class="toc-title">Table of Contents</h3>
+    <ul class="toc-list">
+      {items.map((item) => (
+        <li class={`toc-item toc-level-${item.level}`}>
+          <a href={`#${item.id}`} class="toc-link">
+            {item.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  .toc {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .toc-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .toc-link {
+    color: #4b5563;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+  }
+
+  .toc-link:hover {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .toc-level-2 {
+    padding-left: 0;
+  }
+
+  .toc-level-3 {
+    padding-left: 1rem;
+    font-size: 0.9375rem;
+  }
+
+  @media (min-width: 1024px) {
+    .toc {
+      position: sticky;
+      top: 100px;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+  }
+</style>
+

@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Pagination from '../../components/Pagination.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { getCollection } from 'astro:content';
+import { categoryLabels, categories } from '../../config';
+
+const ITEMS_PER_PAGE = 12;
+
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.publishedAt <= new Date();
+});
+
+const categoryParam = Astro.url.searchParams.get('category');
+const tagParam = Astro.url.searchParams.get('tag');
+const pageParam = Astro.url.searchParams.get('page');
+const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
+
+let filteredArticles = allArticles;
+
+if (categoryParam && categories.includes(categoryParam as any)) {
+  filteredArticles = filteredArticles.filter((a) => a.data.category === categoryParam);
+}
+
+if (tagParam) {
+  filteredArticles = filteredArticles.filter((a) =>
+    a.data.tags.some((tag) => tag.toLowerCase().replace(/\s+/g, '-') === tagParam.toLowerCase())
+  );
+}
+
+filteredArticles = filteredArticles.sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+
+const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+const paginatedArticles = filteredArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+const pageTitle = categoryParam
+  ? `${categoryLabels[categoryParam as keyof typeof categoryLabels]} Articles`
+  : tagParam
+    ? `Articles tagged "${tagParam}"`
+    : 'All Articles';
+---
+
+<BaseLayout title={pageTitle} description={`Browse all articles${categoryParam ? ` in ${categoryLabels[categoryParam as keyof typeof categoryLabels]}` : tagParam ? ` tagged "${tagParam}"` : ''}`}>
+  <div class="articles-page">
+    <div class="page-header">
+      <h1>{pageTitle}</h1>
+      <p class="page-description">
+        {filteredArticles.length} article{filteredArticles.length !== 1 ? 's' : ''} found
+      </p>
+    </div>
+
+    <AdSlot position="top-page" />
+
+    {filteredArticles.length === 0 ? (
+      <div class="empty-state">
+        <p>No articles found. Try adjusting your filters.</p>
+        <a href="/articles" class="btn">View All Articles</a>
+      </div>
+    ) : (
+      <>
+        <div class="articles-grid">
+          {paginatedArticles.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          baseUrl={`/articles${categoryParam ? `?category=${categoryParam}` : tagParam ? `?tag=${tagParam}` : ''}`}
+        />
+      </>
+    )}
+
+    <AdSlot position="bottom-page" />
+  </div>
+</BaseLayout>
+
+<style>
+  .articles-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .page-header {
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-description {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6b7280;
+  }
+
+  .empty-state p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn:hover {
+    background: #1d4ed8;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+

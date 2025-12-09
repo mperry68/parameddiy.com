@@ -1,0 +1,117 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+const getPageUrl = (page: number) => {
+  if (page === 1) return baseUrl;
+  return `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}page=${page}`;
+};
+---
+
+{totalPages > 1 && (
+  <nav class="pagination" aria-label="Pagination">
+    <div class="pagination-container">
+      {currentPage > 1 && (
+        <a href={getPageUrl(currentPage - 1)} class="pagination-link pagination-prev">
+          ← Previous
+        </a>
+      )}
+      <div class="pagination-pages">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+          if (
+            page === 1 ||
+            page === totalPages ||
+            (page >= currentPage - 1 && page <= currentPage + 1)
+          ) {
+            return (
+              <a
+                href={getPageUrl(page)}
+                class={`pagination-link ${page === currentPage ? 'pagination-active' : ''}`}
+                aria-current={page === currentPage ? 'page' : undefined}
+              >
+                {page}
+              </a>
+            );
+          } else if (page === currentPage - 2 || page === currentPage + 2) {
+            return <span class="pagination-ellipsis">...</span>;
+          }
+          return null;
+        })}
+      </div>
+      {currentPage < totalPages && (
+        <a href={getPageUrl(currentPage + 1)} class="pagination-link pagination-next">
+          Next →
+        </a>
+      )}
+    </div>
+  </nav>
+)}
+
+<style>
+  .pagination {
+    margin: 3rem 0;
+  }
+
+  .pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .pagination-pages {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .pagination-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    color: #4b5563;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .pagination-link:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    text-decoration: none;
+  }
+
+  .pagination-active {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+  }
+
+  .pagination-active:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+  }
+
+  .pagination-ellipsis {
+    padding: 0 0.5rem;
+    color: #6b7280;
+  }
+
+  .pagination-prev,
+  .pagination-next {
+    font-weight: 600;
+  }
+</style>
+

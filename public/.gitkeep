@@ -1,0 +1,9 @@
+# Public Assets Directory
+
+Place static assets here (images, favicons, etc.). Files in this directory are served from the root URL.
+
+Examples:
+- `/favicon.svg` → `public/favicon.svg`
+- `/og-image.jpg` → `public/og-image.jpg`
+- `/apple-touch-icon.png` → `public/apple-touch-icon.png`
+

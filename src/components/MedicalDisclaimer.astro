@@ -1,0 +1,46 @@
+---
+const position = Astro.props.position || 'bottom';
+---
+
+<div class={`disclaimer disclaimer-${position}`}>
+  <div class="disclaimer-content">
+    <strong>Medical Disclaimer:</strong> The information provided on this website is for educational
+    purposes only and is not intended as a substitute for professional medical advice, diagnosis, or
+    treatment. Always seek the advice of your physician or other qualified health provider with any
+    questions you may have regarding a medical condition. Never disregard professional medical advice
+    or delay in seeking it because of something you have read on this website.
+  </div>
+</div>
+
+<style>
+  .disclaimer {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 6px;
+  }
+
+  .disclaimer-top {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
+  .disclaimer-bottom {
+    margin-top: 2rem;
+    margin-bottom: 0;
+  }
+
+  .disclaimer-content {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: #92400e;
+  }
+
+  .disclaimer-content strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9375rem;
+  }
+</style>
+

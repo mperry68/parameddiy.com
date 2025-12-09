@@ -1,0 +1,110 @@
+---
+import { siteConfig } from '../config';
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3 class="footer-title">{siteConfig.name}</h3>
+        <p class="footer-description">{siteConfig.description}</p>
+      </div>
+      <div class="footer-section">
+        <h4 class="footer-heading">Pages</h4>
+        <ul class="footer-links">
+          <li><a href="/about">About</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {currentYear} {siteConfig.name}. All rights reserved.</p>
+      <p class="footer-disclaimer">
+        This site provides educational information only and is not a substitute for professional medical advice.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #1f2937;
+    color: #f9fafb;
+    margin-top: 4rem;
+    padding: 3rem 0 1.5rem;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-description {
+    color: #d1d5db;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .footer-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-links a {
+    color: #d1d5db;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: #fff;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #374151;
+    padding-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #9ca3af;
+  }
+
+  .footer-disclaimer {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
+

@@ -1,0 +1,101 @@
+---
+interface Props {
+  position: 'top-article' | 'in-content' | 'sidebar' | 'top-page' | 'bottom-page';
+  className?: string;
+}
+
+const { position, className = '' } = Astro.props;
+
+const labels: Record<Props['position'], string> = {
+  'top-article': 'Ad placeholder (top of article)',
+  'in-content': 'Ad placeholder (in-content)',
+  sidebar: 'Ad placeholder (sidebar)',
+  'top-page': 'Ad placeholder (top of page)',
+  'bottom-page': 'Ad placeholder (bottom of page)',
+};
+
+const dimensions: Record<Props['position'], { width: string; height: string }> = {
+  'top-article': { width: '728px', height: '90px' },
+  'in-content': { width: '300px', height: '250px' },
+  sidebar: { width: '300px', height: '600px' },
+  'top-page': { width: '728px', height: '90px' },
+  'bottom-page': { width: '728px', height: '90px' },
+};
+
+const dims = dimensions[position];
+---
+
+<div class={`ad-slot ad-slot-${position} ${className}`}>
+  <div class="ad-placeholder">
+    <span class="ad-label">{labels[position]}</span>
+    <span class="ad-dimensions">{dims.width} × {dims.height}</span>
+  </div>
+</div>
+
+<style>
+  .ad-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem 0;
+  }
+
+  .ad-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border: 2px dashed #d1d5db;
+    color: #6b7280;
+    font-size: 0.875rem;
+    text-align: center;
+    padding: 1rem;
+    min-height: 100px;
+  }
+
+  .ad-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .ad-dimensions {
+    font-size: 0.75rem;
+  }
+
+  .ad-slot-top-article .ad-placeholder,
+  .ad-slot-top-page .ad-placeholder,
+  .ad-slot-bottom-page .ad-placeholder {
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+  }
+
+  .ad-slot-in-content .ad-placeholder {
+    width: 100%;
+    max-width: 300px;
+    min-height: 250px;
+  }
+
+  .ad-slot-sidebar .ad-placeholder {
+    width: 100%;
+    max-width: 300px;
+    min-height: 600px;
+  }
+
+  @media (max-width: 768px) {
+    .ad-slot-top-article .ad-placeholder,
+    .ad-slot-top-page .ad-placeholder,
+    .ad-slot-bottom-page .ad-placeholder {
+      max-width: 100%;
+      min-height: 50px;
+    }
+
+    .ad-slot-in-content .ad-placeholder,
+    .ad-slot-sidebar .ad-placeholder {
+      max-width: 100%;
+      min-height: 200px;
+    }
+  }
+</style>
+

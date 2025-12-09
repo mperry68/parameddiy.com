@@ -1,0 +1,8 @@
+# Images Directory
+
+Medical images downloaded from Pixabay will be stored in:
+- `public/images/medical/`
+
+This directory structure allows images to be served from the root URL:
+- `/images/medical/medical-12345.jpg`
+

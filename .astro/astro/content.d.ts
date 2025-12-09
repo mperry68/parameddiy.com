@@ -166,6 +166,20 @@ declare module 'astro:content' {
   collection: "articles";
   data: InferEntrySchema<"articles">
 } & { render(): Render[".md"] };
+"how-long-does-flu-last.md": {
+	id: "how-long-does-flu-last.md";
+  slug: "how-long-does-flu-last";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
+"is-strep-throat-contagious.md": {
+	id: "is-strep-throat-contagious.md";
+  slug: "is-strep-throat-contagious";
+  body: string;
+  collection: "articles";
+  data: InferEntrySchema<"articles">
+} & { render(): Render[".md"] };
 "mental-wellbeing-strategies.md": {
 	id: "mental-wellbeing-strategies.md";
   slug: "mental-wellbeing-strategies";

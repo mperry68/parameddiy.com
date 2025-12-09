@@ -1,0 +1,456 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { categoryLabels } from '../config';
+
+const searchQuery = Astro.url.searchParams.get('q') || '';
+const allArticles = await getCollection('articles', ({ data }) => {
+  return data.publishedAt <= new Date();
+});
+
+// Enhanced search function that handles natural language queries and questions
+function searchArticles(query: string, articles: typeof allArticles) {
+  if (!query || query.trim().length === 0) {
+    return [];
+  }
+
+  // Remove question words and common stop words, but keep meaningful terms
+  const stopWords = new Set([
+    'what', 'is', 'are', 'how', 'why', 'when', 'where', 'who', 'which', 'the', 'a', 'an',
+    'to', 'for', 'of', 'in', 'on', 'at', 'by', 'with', 'from', 'about', 'into', 'onto',
+    'and', 'or', 'but', 'if', 'then', 'than', 'that', 'this', 'these', 'those',
+    'can', 'could', 'should', 'would', 'will', 'may', 'might', 'must',
+    'do', 'does', 'did', 'have', 'has', 'had', 'be', 'been', 'being',
+    'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them'
+  ]);
+
+  // Extract meaningful keywords from the query
+  const queryLower = query.toLowerCase().trim();
+  
+  // Remove question marks and punctuation, but keep the structure
+  const cleanedQuery = queryLower.replace(/[?.,!;:]/g, ' ');
+  
+  // Split into words and filter out stop words, but keep important medical/health terms
+  let searchTerms = cleanedQuery
+    .split(/\s+/)
+    .filter((term) => term.length > 2 && !stopWords.has(term));
+
+  // If all words were stop words, use the original query (for very specific searches)
+  if (searchTerms.length === 0) {
+    searchTerms = cleanedQuery.split(/\s+/).filter((term) => term.length > 0);
+  }
+
+  // Detect question intent
+  const isQuestion = /^(what|how|why|when|where|who|which|can|should|do|does|is|are)/i.test(query.trim());
+  const questionType = queryLower.match(/^(what|how|why|when|where|who|which)/i)?.[1] || '';
+
+  // Expand search terms for common medical/health synonyms and related terms
+  const termExpansions: Record<string, string[]> = {
+    'pain': ['pain', 'ache', 'discomfort', 'soreness'],
+    'exercise': ['exercise', 'workout', 'training', 'fitness', 'physical activity'],
+    'therapy': ['therapy', 'treatment', 'rehabilitation', 'rehab'],
+    'health': ['health', 'wellness', 'wellbeing', 'fitness'],
+    'prevent': ['prevent', 'avoid', 'stop', 'reduce', 'minimize'],
+    'treat': ['treat', 'treatment', 'manage', 'handle', 'address'],
+    'recover': ['recover', 'recovery', 'heal', 'healing', 'rehabilitation'],
+    'injury': ['injury', 'hurt', 'damage', 'trauma'],
+    'diet': ['diet', 'nutrition', 'food', 'eating', 'meal'],
+    'mental': ['mental', 'psychological', 'emotional', 'mind'],
+  };
+
+  // Expand terms
+  const expandedTerms = new Set<string>();
+  searchTerms.forEach((term) => {
+    expandedTerms.add(term);
+    // Check for expansions
+    Object.entries(termExpansions).forEach(([key, synonyms]) => {
+      if (key.includes(term) || term.includes(key) || synonyms.some(s => s.includes(term) || term.includes(s))) {
+        synonyms.forEach(syn => expandedTerms.add(syn));
+      }
+    });
+  });
+
+  const finalSearchTerms = Array.from(expandedTerms);
+
+  return articles
+    .map((article) => {
+      const { data } = article;
+      let score = 0;
+      const matchedTerms: string[] = [];
+      const matchDetails: string[] = [];
+
+      // Combine all searchable text
+      const titleLower = data.title.toLowerCase();
+      const summaryLower = data.summary.toLowerCase();
+      const allTags = data.tags.map(t => t.toLowerCase()).join(' ');
+      const categoryLabel = categoryLabels[data.category].toLowerCase();
+      const bodyLower = article.body.toLowerCase();
+      const allText = `${titleLower} ${summaryLower} ${allTags} ${categoryLabel} ${bodyLower}`;
+
+      // Exact phrase matching (highest priority)
+      if (allText.includes(queryLower)) {
+        score += 50;
+        matchDetails.push('exact phrase');
+      }
+
+      // Title matching with different weights
+      finalSearchTerms.forEach((term) => {
+        // Exact word match in title (very high weight)
+        const titleWords = titleLower.split(/\s+/);
+        if (titleWords.some(word => word === term || word.startsWith(term) || term.startsWith(word))) {
+          score += 15;
+          if (!matchedTerms.includes(term)) matchedTerms.push(term);
+          matchDetails.push('title match');
+        } else if (titleLower.includes(term)) {
+          score += 10;
+          if (!matchedTerms.includes(term)) matchedTerms.push(term);
+        }
+      });
+
+      // Summary matching
+      finalSearchTerms.forEach((term) => {
+        if (summaryLower.includes(term)) {
+          score += 8;
+          if (!matchedTerms.includes(term)) matchedTerms.push(term);
+          matchDetails.push('summary match');
+        }
+      });
+
+      // Tag matching (high relevance)
+      data.tags.forEach((tag) => {
+        const tagLower = tag.toLowerCase();
+        finalSearchTerms.forEach((term) => {
+          if (tagLower === term || tagLower.includes(term) || term.includes(tagLower)) {
+            score += 7;
+            if (!matchedTerms.includes(term)) matchedTerms.push(term);
+            matchDetails.push('tag match');
+          }
+        });
+      });
+
+      // Category matching
+      finalSearchTerms.forEach((term) => {
+        if (categoryLabel.includes(term)) {
+          score += 4;
+          if (!matchedTerms.includes(term)) matchedTerms.push(term);
+        }
+      });
+
+      // Content body matching (lower weight, but still important)
+      finalSearchTerms.forEach((term) => {
+        // Count occurrences in body for relevance
+        const occurrences = (bodyLower.match(new RegExp(term, 'g')) || []).length;
+        if (occurrences > 0) {
+          score += Math.min(occurrences * 0.5, 3); // Cap at 3 points
+          if (!matchedTerms.includes(term)) matchedTerms.push(term);
+        }
+      });
+
+      // Boost score for featured articles
+      if (data.featured) {
+        score += 2;
+      }
+
+      // Boost score if query matches article category intent
+      if (isQuestion) {
+        // "What is" questions favor overview/intro articles
+        if (questionType === 'what' && (titleLower.includes('overview') || titleLower.includes('introduction') || titleLower.includes('guide'))) {
+          score += 5;
+        }
+        // "How to" questions favor practical/instructional articles
+        if (questionType === 'how' && (titleLower.includes('how') || summaryLower.includes('learn') || summaryLower.includes('technique'))) {
+          score += 5;
+        }
+        // "Why" questions favor explanatory articles
+        if (questionType === 'why' && (summaryLower.includes('benefit') || summaryLower.includes('important') || summaryLower.includes('reason'))) {
+          score += 5;
+        }
+      }
+
+      // Bonus for matching multiple terms
+      if (matchedTerms.length >= 2) {
+        score += matchedTerms.length * 2;
+      }
+
+      // Bonus for exact title match
+      if (titleLower === queryLower || titleLower.includes(queryLower)) {
+        score += 20;
+      }
+
+      return { article, score, matchedTerms, matchDetails };
+    })
+    .filter((result) => result.score > 0)
+    .sort((a, b) => {
+      // Primary sort by score
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      // Secondary sort by number of matched terms
+      if (b.matchedTerms.length !== a.matchedTerms.length) {
+        return b.matchedTerms.length - a.matchedTerms.length;
+      }
+      // Tertiary sort by featured status
+      if (b.article.data.featured !== a.article.data.featured) {
+        return b.article.data.featured ? 1 : -1;
+      }
+      // Final sort by date (newer first)
+      return b.article.data.publishedAt.getTime() - a.article.data.publishedAt.getTime();
+    })
+    .map((result) => result.article);
+}
+
+const searchResults = searchQuery ? searchArticles(searchQuery, allArticles) : [];
+const hasResults = searchResults.length > 0;
+---
+
+<BaseLayout
+  title={searchQuery ? `Search: ${searchQuery}` : 'Search'}
+  description={searchQuery ? `Search results for "${searchQuery}"` : 'Search articles on Paramedical Knowledge Hub'}
+>
+  <div class="search-page">
+    <div class="search-header">
+      <h1>Search Articles</h1>
+      <form class="search-form-large" action="/search" method="get">
+        <input
+          type="search"
+          name="q"
+          id="search-query"
+          class="search-input-large"
+          placeholder="Search by title, summary, tags, or content..."
+          value={searchQuery}
+          aria-label="Search articles"
+          autofocus
+        />
+        <button type="submit" class="search-button-large">Search</button>
+      </form>
+    </div>
+
+    {searchQuery && (
+      <div class="search-results">
+        {hasResults ? (
+          <>
+            <p class="results-count">
+              Found {searchResults.length} article{searchResults.length !== 1 ? 's' : ''} for "{searchQuery}"
+              {searchQuery.includes('?') && (
+                <span class="query-type"> (question detected)</span>
+              )}
+            </p>
+            <div class="articles-grid">
+              {searchResults.map((article) => (
+                <ArticleCard article={article} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div class="no-results">
+            <p class="no-results-message">
+              No articles found for "{searchQuery}"
+            </p>
+            <p class="no-results-suggestions">
+              Try:
+            </p>
+            <ul class="suggestions-list">
+              <li>Using different keywords</li>
+              <li>Checking your spelling</li>
+              <li>Using more general terms</li>
+              <li>Browsing by <a href="/categories">category</a> or <a href="/articles">all articles</a></li>
+            </ul>
+          </div>
+        )}
+      </div>
+    )}
+
+    {!searchQuery && (
+      <div class="search-empty">
+        <p>Enter a search term above to find articles.</p>
+        <div class="popular-searches">
+          <h2>Popular Searches</h2>
+          <div class="search-tags">
+            <a href="/search?q=physiotherapy" class="search-tag">Physiotherapy</a>
+            <a href="/search?q=nutrition" class="search-tag">Nutrition</a>
+            <a href="/search?q=rehabilitation" class="search-tag">Rehabilitation</a>
+            <a href="/search?q=mental health" class="search-tag">Mental Health</a>
+            <a href="/search?q=exercise" class="search-tag">Exercise</a>
+            <a href="/search?q=prevention" class="search-tag">Prevention</a>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .search-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .search-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .search-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-form-large {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .search-input-large {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+
+  .search-input-large:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  .search-button-large {
+    padding: 0.75rem 2rem;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .search-button-large:hover {
+    background: #1d4ed8;
+  }
+
+  .search-results {
+    margin-top: 2rem;
+  }
+
+  .results-count {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+
+  .query-type {
+    font-size: 0.875rem;
+    color: #2563eb;
+    font-style: italic;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .no-results-message {
+    font-size: 1.25rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+  }
+
+  .no-results-suggestions {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+
+  .suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .suggestions-list li {
+    margin-bottom: 0.5rem;
+    color: #6b7280;
+  }
+
+  .suggestions-list a {
+    color: #2563eb;
+    text-decoration: none;
+  }
+
+  .suggestions-list a:hover {
+    text-decoration: underline;
+  }
+
+  .search-empty {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #6b7280;
+  }
+
+  .popular-searches {
+    margin-top: 3rem;
+  }
+
+  .popular-searches h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #1f2937;
+  }
+
+  .search-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .search-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #f3f4f6;
+    color: #4b5563;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .search-tag:hover {
+    background: #e5e7eb;
+    color: #1f2937;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .search-header h1 {
+      font-size: 2rem;
+    }
+
+    .search-form-large {
+      flex-direction: column;
+    }
+
+    .search-button-large {
+      width: 100%;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
